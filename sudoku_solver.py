@@ -14,12 +14,17 @@ def display(puzzle):
             else:
                 print(str(puzzle[i][j])+" ", end="")
 
-# find next empty cell                
+# find next empty cell
 def nextEmpty(puzzle):
+    min_vals = float('Inf')
+    min_cell = (0,0)
     for row in range(len(puzzle)):
         for column in range(len(puzzle[0])):
             if puzzle[row][column] == 0:
-                return (row, column)
+                vals = [x for x in range(1,10) if isAvailable(puzzle,row,x)]
+                if len(vals) < min_vals:
+                    min_vals = len(vals)
+                    min_cell = (row, column)
     return None
 
 # determine if a number from 1 to 9 can be placed in empty cell
