@@ -25,27 +25,30 @@ def nextEmpty(puzzle):
                 if len(vals) < min_vals:
                     min_vals = len(vals)
                     min_cell = (row, column)
-    return None
+    if min_vals == 0:
+        return None
+    else:
+        return min_cell
 
 # determine if a number from 1 to 9 can be placed in empty cell
 def isAvailable(puzzle, coordinate, number):
     row = coordinate[0]
     column = coordinate[1]
-    
+
     if number in puzzle[row]:
             return False
-    
+
     for i in range(len(puzzle)):
         if number == puzzle[i][column]:
             return False
 
     row = (row//3)*3
-    column = (column//3)*3 
+    column = (column//3)*3
     for i in range(3):
         for j in range(3):
             if puzzle[row+i][column+j] == number:
                 return False
-            
+
     return True
 
 # backtracking to determine correct value of each cell
@@ -56,7 +59,7 @@ def backtrack(puzzle):
     else:
         row = coordinate[0]
         column = coordinate[1]
-        
+
     # for each number, check if it is available and if yes make a recursive call
     # if call returns False, set location as empty and continue with the next number
     for number in range (1,10):
@@ -82,9 +85,9 @@ def solve(puzzle):
         print("Puzzle solved.")
         print()
     else: print("No solution")
-    
-# input puzzle 
-def inputPuzzle(puzzle):       
+
+# input puzzle
+def inputPuzzle(puzzle):
     print("Please input your puzzle.")
     print("Input all numbers. For blanks input 0.")
     print("Leave a space ' ' between numbers and enter between lines.")
